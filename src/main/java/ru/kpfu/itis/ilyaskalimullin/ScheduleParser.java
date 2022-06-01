@@ -115,7 +115,7 @@ public class ScheduleParser {
 
         if (matcher.group(3).equals("")) return false;
         //out.write("<string name = \"cab" + matcher.group(3) + " " + lessonNumber + "\">" + matcher.group(1) + " " + matcher.group(2) + " + " + getGroupNumber(groupNumber) + "</string>");
-        out.write(String.format("<string name = \"%s %d\">%s %s%s</string>", lessonCab, lessonNumber, lessonName, lessonTeacher, group));
+        out.write(String.format("<string name = \"с%s%d\">%s %s%s</string>", lessonCab, lessonNumber, lessonName, lessonTeacher, group));
         return true;
     }
 
@@ -134,7 +134,7 @@ public class ScheduleParser {
             throw new IOException("Could not read schedule xml file", ex);
         }
 
-        Pattern pattern = Pattern.compile("<string name = \"([0-9 ]+)\">([^<]+)<\\/string>");
+        Pattern pattern = Pattern.compile("<string name = \"(с[0-9]+)\">([^<]+)<\\/string>");
         Matcher matcher = pattern.matcher(xmlString);
 
         while (matcher.find()) {
