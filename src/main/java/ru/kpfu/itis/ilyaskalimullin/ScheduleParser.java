@@ -98,13 +98,18 @@ public class ScheduleParser {
     }
 
     public boolean saveLesson(String lesson, int lessonNumber, int groupNumber, boolean isSplitLesson, Writer out) throws IOException {
-        Pattern pattern = Pattern.compile("([^,]+),([^,]*),([^,]*)");
+        //Pattern pattern = Pattern.compile("([^,]+),([^,]*),([^,]*)");
+        Pattern pattern = Pattern.compile("((?:[^,]|[\\\\,])+),((?:[^,]|[\\\\,])*),((?:[^,]|[\\\\,])*)");
         Matcher matcher = pattern.matcher(lesson);
         if (!matcher.find()) return false;
 
         String lessonName = matcher.group(1);
         String lessonTeacher = matcher.group(2);
         String lessonCab = matcher.group(3);
+
+        lessonName = lessonName.replace("\\,", ",");
+        lessonTeacher = lessonTeacher.replace("\\,", ",");
+        lessonCab = lessonCab.replace("\\,", ",");
 
         String group;
         if (isSplitLesson) {
